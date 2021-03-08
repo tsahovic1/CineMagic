@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Payment";
+}
+<html>
+<style>
+    input[type=text] {
+        width: 350px;
+        -webkit-transition: width .35s ease-in-out;
+        transition: width .35s ease-in-out;
+    }
+
+
+        input[type=text]:focus {
+            width: 725px;
+        }
+</style>
+<body>
+    <div class="row" style="margin-top:40px;">
+        <div class="col-8 offset-2">
+            <div class="card">
+                <div class="card-header">
+                    <h4>CineMagic TICKET</h4>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted"><b>Movie: </b> @Model.Projection.MovieName</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><b>Date: </b> @Model.Projection.ProjectionTime.ToString("dd/MM/yyyy"), @Model.Projection.ProjectionTime.DayOfWeek</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><b>Time: </b> @Model.Projection.ProjectionTime.ToString("HH:mm")</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><b>Cinema hall: </b> @Model.Projection.CinemaHall.Id</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><b>Seat: </b> @Model.Seat.Name</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><b>Ticket price: </b>7KM</h6>
+                    <p class="card-text">
+                    <p style="color:firebrick">Thank you for making a reservation with CineMagic</p>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- minlength="7" maxlength="7" oninvalid="this.setCustomValidity('Card number should contains 7 numbers') "  oninput="this.setCustomValidity('')" -->
+    <div class="row">
+        <div class="col-8 offset-2">
+            <form asp-controller="Reservations" asp-action="CheckCardNumber" method="post">
+                <input type="hidden" id="ProjectionId" name="ProjectionId" value='@Model.Projection.Id' />
+                <input type="hidden" id="AvailableSeatId" name="AvailableSeatId" value='@Model.Seat.Id' />
+
+                <br />
+                <br />
+
+                <b>Enter your cinema card number to pay ticket:</b>
+                <br />
+                <br />
+                <input type="text" class="form-control" id="CardNumber" name="CardNumber" pattern="[0-9]{7}" placeholder="cinema card number" required maxlength="7" >
+                <br />
+                <br />
+                <div class="row">
+                    <button type="submit" class="btn btn-primary" id="btn" style="margin-left:20px;">Confirm</button>
+                    <a href="/Movies/Details/@Model.Projection.MovieId">
+                        <button type="button" class="btn btn-primary" style="margin-left:40px;"> Cancel</button>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div>
+        <br />
+    </div>
+
+    <div class="row">
+        <div class="col-8 offset-2">
+
+        </div>
+
+    </div>
+
+</body>
+</html>

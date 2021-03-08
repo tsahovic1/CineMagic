@@ -1,0 +1,140 @@
+﻿@{
+    ViewData["Title"] = "Movie Detail";
+}
+<html>
+<style>
+    body {
+        background-image: url("/images/logo_providno_2.png");
+        background-repeat: no-repeat;
+        background-position: left top;
+        background-position: 0px 120px;
+        background-size: 280px 250px;
+        background-attachment: fixed;
+    }
+</style>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-7 offset-1">
+            <h1 style="font-family:'Copperplate Gothic'"><strong>@Model.Name</strong></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-7 offset-1">
+            <b style="font-size:large;font-family:'Copperplate Gothic'">Synopsis</b>
+            <p>@Model.Synopsis</p>
+            <br/>
+            <b style="font-size:large;font-family:'Copperplate Gothic'">GENRE ? </b>
+
+            @foreach (var item in Model.GenreNames)
+            {
+                <b style="margin-left: 2.5em; font-size: large; font-family: 'Copperplate Gothic'">@item</b>
+            }
+
+            <br/>
+            <br/>
+
+            <iframe width="600" height="315" src="@Model.TrailerURL" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+        </div>
+        <div class="col-3 offset-1">
+            <img src="@Url.Content(@Model.PosterURL)" style="width:200px;height:300px" />
+
+            <br />
+            <br />
+
+            <p style="font-size:large"><b style="font-family:'Copperplate Gothic'">Duration: </b>@Model.Duration min</p>
+
+            <br />
+
+            <b style="font-size:large;font-family:'Copperplate Gothic'">Cast</b>
+            <ul>
+                @foreach (var item in Model.ActorNames)
+                {
+                    <li>@item</li>
+                }
+            </ul>
+
+            <br />
+
+            <p style="font-size:large"><b style="font-family:'Copperplate Gothic'">Director: </b></p>
+            <p>@Model.Director</p>
+
+
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:10px">
+    <p style="margin-top:10px"></p>
+    <br/>
+</div>
+
+    <!-- 'Copperplate Gothic' font -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-5 offset-2" style="background-color:burlywood">
+
+            </div>
+            <br />
+        </div>
+        <div class="row">
+            <div class="col-5 offset-2" style="background-color:burlywood">
+                <table class="table" style="width:100%">
+                    <colgroup>
+                        <col span="1" style="width: 50%;">
+                        <col span="1" style="width: 25%;">
+                        <col span="1" style="width: 25%;">
+                    </colgroup>
+                    <thead class="thead-dark">
+                        <tr>
+                            <th style="vertical-align:middle">Projection Date</th>
+                            <th style="vertical-align:central">Projection Time</th>
+                            <th style="vertical-align:central">Make reservation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Projections)
+                        {
+                            @if (DateTime.Compare(@item.ProjectionTime, DateTime.Now) > 0)
+                            {
+                                <tr>
+                                    <td>
+                                        <b>
+                                            @item.ProjectionTime.ToString("dd/MM/yyyy"), @item.ProjectionTime.DayOfWeek
+                                        </b>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            @item.ProjectionTime.ToString("HH:mm")
+                                        </b>
+
+                                    </td>
+                                    <td>
+                                        <a href="/Movies/MovieReservation/@item.Id">
+                                            <img class="img-fluid" src="~/images/ticket.png" width:5px;height:5px>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="footer">
+    </div>
+    </body>
+</html>
+
+
+
+
+
+
